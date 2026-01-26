@@ -1,0 +1,14 @@
+01/20/2026 10:01:44 AM - DEBUG: USDT not found.
+01/20/2026 10:01:44 AM - DEBUG: Tickets to look for: 9 
+01/20/2026 10:01:44 AM - DEBUG: -------------------------------------------
+01/20/2026 10:01:44 AM - DEBUG: Ticker | Candle | %
+01/20/2026 10:01:44 AM - DEBUG: BTC | 0.3% | Bullish
+01/20/2026 10:01:44 AM - DEBUG: USDC | -0.07% | Bearish
+01/20/2026 10:01:44 AM - DEBUG: ETH | -0.34% | Bearish
+01/20/2026 10:01:44 AM - DEBUG: XRP | -6.75% | Bearish
+01/20/2026 10:01:44 AM - DEBUG: SOL | -7.4% | Bearish
+01/20/2026 10:01:44 AM - DEBUG: TRX | 1.04% | Bullish
+01/20/2026 10:01:44 AM - DEBUG: BNB | 1.05% | Bullish
+01/20/2026 10:01:44 AM - DEBUG: DOGE | -8.85% | Bearish
+01/20/2026 10:01:44 AM - DEBUG: ADA | -8.31% | Bearish
+01/20/2026 10:01:44 AM - INFO: Finished in 6.14 seconds

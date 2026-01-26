@@ -1,3 +1,4 @@
+import math
 import os
 import logging as log
 from dotenv import load_dotenv
@@ -11,7 +12,7 @@ LOG_MIN_LEVEL = int(os.getenv("LOG_MIN_LEVEL"))
 
 
 DEFAULT_TAKE = int(os.getenv("BINANCE_TICKERS_TAKE"))
-LIMIT_REQUESTS = int(os.getenv("BINANCE_TICKERS_LIMIT_REQUESTS"))
+LIMIT_TICKERS = int(os.getenv("BINANCE_TICKERS_LIMIT"))
 BINANCE_TICKERS = str(os.getenv('BINANCE_TICKERS'))
 BINANCE_TICKER_HISTORICAL = str(os.getenv('BINANCE_TICKER_HISTORICAL'))
 
@@ -26,18 +27,6 @@ def init_log(path:str):
                     filename=f'log/{filename}.log', filemode='w')
 
 
-# Business Logic
-def get_candle_type(result:float) -> str:
-    if result < 0:
-        return 'Bearish'
-
-    if result > 0:
-        return 'Bullish'
-
-    return 'Doji'
-
-def get_percentage(init:float, final:float) -> str:
-    return f"{round((final*100/init)-100,2)}%"
 
 def get_endpoint_binance_tickers(start:int, take:int=DEFAULT_TAKE) -> str:
     return BINANCE_TICKERS.replace('TAKE', str(take)).replace('START', str(start))
@@ -47,4 +36,12 @@ def get_endpoint_binance_candles(ticker:str, period:int=10, interval:str = '1d')
     return BINANCE_TICKER_HISTORICAL.replace('TICKER', ticker).replace('PERIOD', str(period)).replace('INTERVAL', interval)
 
 def has_ticker_data(response:dict) -> bool:
-    return 'data' in response and response['data']['success']
+    return "data" in response and response["data"]["success"]
+
+def get_stop_tickers(limit_tickets:int) -> int:
+    return 1 if limit_tickets < DEFAULT_TAKE else math.ceil(limit_tickets/LIMIT_TICKERS)-1
+
+def print_table(number:int):
+    log.debug(f"Tickets to look for: {number} ")
+    log.debug("-------------------------------------------")
+    log.debug("Ticker | Candle | %")

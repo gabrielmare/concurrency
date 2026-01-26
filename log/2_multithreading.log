@@ -1,0 +1,35 @@
+01/20/2026 08:57:39 AM - DEBUG: Starting new HTTPS connection (1): www.binance.com:443
+01/20/2026 08:57:42 AM - DEBUG: https://www.binance.com:443 "GET /bapi/composite/v1/public/promo/cmc/cryptocurrency/listings/latest?limit=1000&start=1 HTTP/1.1" 200 242716
+01/20/2026 08:57:42 AM - DEBUG: Starting new HTTPS connection (2): www.binance.com:443
+01/20/2026 08:57:42 AM - DEBUG: Starting new HTTPS connection (3): www.binance.com:443
+01/20/2026 08:57:42 AM - DEBUG: Starting new HTTPS connection (4): www.binance.com:443
+01/20/2026 08:57:42 AM - DEBUG: Starting new HTTPS connection (5): www.binance.com:443
+01/20/2026 08:57:42 AM - DEBUG: Starting new HTTPS connection (6): www.binance.com:443
+01/20/2026 08:57:42 AM - DEBUG: Starting new HTTPS connection (7): www.binance.com:443
+01/20/2026 08:57:42 AM - DEBUG: Starting new HTTPS connection (8): www.binance.com:443
+01/20/2026 08:57:42 AM - DEBUG: Starting new HTTPS connection (9): www.binance.com:443
+01/20/2026 08:57:42 AM - DEBUG: Starting new HTTPS connection (10): www.binance.com:443
+01/20/2026 08:57:43 AM - DEBUG: https://www.binance.com:443 "GET /api/v3/uiKlines?limit=10&symbol=BTCUSDT&interval=1d HTTP/1.1" 200 693
+01/20/2026 08:57:45 AM - DEBUG: https://www.binance.com:443 "GET /api/v3/uiKlines?limit=10&symbol=BNBUSDT&interval=1d HTTP/1.1" 200 629
+01/20/2026 08:57:45 AM - DEBUG: https://www.binance.com:443 "GET /api/v3/uiKlines?limit=10&symbol=SOLUSDT&interval=1d HTTP/1.1" 200 621
+01/20/2026 08:57:45 AM - DEBUG: https://www.binance.com:443 "GET /api/v3/uiKlines?limit=10&symbol=USDTUSDT&interval=1d HTTP/1.1" 400 38
+01/20/2026 08:57:45 AM - DEBUG: https://www.binance.com:443 "GET /api/v3/uiKlines?limit=10&symbol=TRXUSDT&interval=1d HTTP/1.1" 200 592
+01/20/2026 08:57:45 AM - DEBUG: USDT not found.
+01/20/2026 08:57:45 AM - DEBUG: https://www.binance.com:443 "GET /api/v3/uiKlines?limit=10&symbol=DOGEUSDT&interval=1d HTTP/1.1" 200 609
+01/20/2026 08:57:45 AM - DEBUG: https://www.binance.com:443 "GET /api/v3/uiKlines?limit=10&symbol=XRPUSDT&interval=1d HTTP/1.1" 200 612
+01/20/2026 08:57:45 AM - DEBUG: https://www.binance.com:443 "GET /api/v3/uiKlines?limit=10&symbol=ETHUSDT&interval=1d HTTP/1.1" 200 670
+01/20/2026 08:57:45 AM - DEBUG: https://www.binance.com:443 "GET /api/v3/uiKlines?limit=10&symbol=ADAUSDT&interval=1d HTTP/1.1" 200 601
+01/20/2026 08:57:45 AM - DEBUG: https://www.binance.com:443 "GET /api/v3/uiKlines?limit=10&symbol=USDCUSDT&interval=1d HTTP/1.1" 200 555
+01/20/2026 08:57:45 AM - DEBUG: Tickets to look for: 9 
+01/20/2026 08:57:45 AM - DEBUG: -------------------------------------------
+01/20/2026 08:57:45 AM - DEBUG: Ticker | Candle | %
+01/20/2026 08:57:45 AM - DEBUG: BTC | 0.28% | Bullish
+01/20/2026 08:57:45 AM - DEBUG: BNB | 0.98% | Bullish
+01/20/2026 08:57:45 AM - DEBUG: SOL | -7.76% | Bearish
+01/20/2026 08:57:45 AM - DEBUG: TRX | 1.64% | Bullish
+01/20/2026 08:57:45 AM - DEBUG: DOGE | -9.12% | Bearish
+01/20/2026 08:57:45 AM - DEBUG: XRP | -6.94% | Bearish
+01/20/2026 08:57:45 AM - DEBUG: ETH | -0.37% | Bearish
+01/20/2026 08:57:45 AM - DEBUG: ADA | -8.44% | Bearish
+01/20/2026 08:57:45 AM - DEBUG: USDC | -0.05% | Bearish
+01/20/2026 08:57:45 AM - INFO: Finished in 5.74 seconds
