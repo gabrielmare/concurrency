@@ -29,7 +29,7 @@ def init_log(path:str):
 
 
 def get_endpoint_binance_tickers(start:int, take:int=DEFAULT_TAKE) -> str:
-    return BINANCE_TICKERS.replace('TAKE', str(take)).replace('START', str(start))
+    return BINANCE_TICKERS.replace('TAKE', str(get_limit_tickers_by_page(take))).replace('START', str(start))
 
 def get_endpoint_binance_candles(ticker:str, period:int=10, interval:str = '1d') -> str:
     ticker += 'USDT'
@@ -38,8 +38,21 @@ def get_endpoint_binance_candles(ticker:str, period:int=10, interval:str = '1d')
 def has_ticker_data(response:dict) -> bool:
     return "data" in response and response["data"]["success"]
 
-def get_stop_tickers(limit_tickets:int) -> int:
-    return 1 if limit_tickets < DEFAULT_TAKE else math.ceil(limit_tickets/LIMIT_TICKERS)-1
+def get_limit_page(limit_tickets:int) -> int:
+    return 1 if limit_tickets < DEFAULT_TAKE else math.ceil(limit_tickets/DEFAULT_TAKE)
+
+def get_limit_tickers_by_page(take:int) -> int:
+    return take if take < DEFAULT_TAKE else DEFAULT_TAKE
+
+def get_tickers_by_page(limit_tickets:int) -> dict:
+    par:dict={}
+    for page in range(0, get_limit_page(limit_tickets)):
+        take = get_limit_tickers_by_page(limit_tickets)
+        par[page] = take
+        limit_tickets=limit_tickets-take
+    return par
+
+
 
 def print_table(number:int):
     log.debug(f"Tickets to look for: {number} ")

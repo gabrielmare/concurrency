@@ -1,5 +1,3 @@
-from abc import abstractproperty
-
 
 class ClosingPrices:
     ticker: str

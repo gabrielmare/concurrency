@@ -1,4 +1,3 @@
-import math
 import time
 
 from business import get_binance_tickers, get_binance_ticker
@@ -9,7 +8,7 @@ from general import (
     DEFAULT_TAKE,
     LIMIT_TICKERS,
     print_table,
-    get_stop_tickers,
+    get_stop_page
 )
 from model.closing_prices import ClosingPrices
 
@@ -31,7 +30,7 @@ def get_closes_ticker(tickers_to_search:list[str]) -> list[ClosingPrices]:
 def get_tickers(limit_tickets:int) -> list:
     tickers_found: list[str] = []
 
-    for i in range(0, get_stop_tickers(limit_tickets)) :
+    for i in range(0, get_stop_page(limit_tickets)) :
         partial_tickers=get_binance_tickers(i)
 
         if DEFAULT_TAKE > len(partial_tickers):

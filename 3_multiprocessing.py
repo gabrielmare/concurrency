@@ -8,7 +8,7 @@ from general import (
     init_log,
     LIMIT_TICKERS,
     print_table,
-    get_stop_tickers,
+    get_limit_page,
 )
 from model.closing_prices import ClosingPrices
 
@@ -34,7 +34,7 @@ def get_tickers(limit_tickets:int) -> list[str]:
     tickers_found: list[str] = []
 
     with (concurrent.futures.ProcessPoolExecutor() as executor):
-        results=[executor.submit(get_binance_tickers, start) for start in range(0, get_stop_tickers(limit_tickets)) ]
+        results=[executor.submit(get_binance_tickers, start) for start in range(0, get_limit_page(limit_tickets)) ]
         for result in concurrent.futures.as_completed(results):
             try:
                 tickers_found.extend(result.result())
