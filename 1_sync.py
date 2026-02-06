@@ -1,76 +1,56 @@
-import json
 import time
-import requests
-from general import ( log, init_log,
-    get_header,
-    get_endpoint_binance_tickers,
-    get_endpoint_binance_candles,
-    get_percentage,
-    get_candle_type,
-    DEFAULT_TAKE, LIMIT_REQUESTS,
-    has_ticker_data,
+
+from business import get_binance_tickers, get_binance_ticker
+from exceptions.ticker import ExceptionTickerNotFound
+from general import (
+    log,
+    init_log,
+    DEFAULT_TAKE,
+    LIMIT_TICKERS,
+    print_table,
+    get_stop_page
 )
+from model.closing_prices import ClosingPrices
 
 init_log(__file__)
 
-def get_closes_by_period(ticker:str, periods:int=10, interval:str = '1d') -> tuple[float, float]:
-    response=requests.get(get_endpoint_binance_candles(ticker, periods, interval), headers=get_header())
-    if response.status_code != 200:
-        Exception('Ticker not found.')
+def get_closes_ticker(tickers_to_search:list[str]) -> list[ClosingPrices]:
+    closing_prices: list[ClosingPrices] =[]
 
-    candles = json.loads(response.text)
-    first_close_of_period, last_close_of_period=float(candles[0][4]), float(candles[periods-1][4])
-    return first_close_of_period, last_close_of_period
+    for ticker in tickers_to_search:
+        try:
+            closing_prices.append(get_binance_ticker(ticker))
+        except ExceptionTickerNotFound as e:
+            log.debug(e)
+        except Exception as e:
+            log.error(f"Error:: {e}")
 
-def get_binance_tickers() -> list:
-    tickers=[]
-    start=1
-    wanted=0
+    return closing_prices
 
-    for i in range(1, LIMIT_REQUESTS) :
-        endpoint=get_endpoint_binance_tickers(start=start)
-        response=requests.get(endpoint, headers=get_header())
+def get_tickers(limit_tickets:int) -> list:
+    tickers_found: list[str] = []
 
-        if response.status_code != 200 or not has_ticker_data(json_response:=json.loads(response.text)):
-            raise Exception('Wait! ', response.status_code)
+    for i in range(0, get_stop_page(limit_tickets)) :
+        partial_tickers=get_binance_tickers(i)
 
-        data_tickers=json_response['data']['body']['data']
-        for data_ticker in data_tickers:
-            tickers.append( str(data_ticker['symbol']).upper().strip())
-
-        if DEFAULT_TAKE > len(data_tickers):
+        if DEFAULT_TAKE > len(partial_tickers):
             log.info('Finished process to looking for Binance tickets.')
             break
 
-        start = DEFAULT_TAKE + 1
-        wanted=DEFAULT_TAKE*i
-    log.info(f'Tickers wanted:: {wanted}')
-    return tickers
-
-def main():
-    tickers=get_binance_tickers()
-    log.debug(f"Tickets to look for: {len(tickers)} ")
-    log.debug("-------------------------------------------")
-    log.debug("Ticker | Candle | %")
-    stop=10
-
-    for i, ticker in enumerate(tickers, 1):
-        try:
-            closes = get_closes_by_period(ticker)
-
-            if i > stop:
-                break
-
-            percentage=get_percentage(closes[0], closes[1])
-            candle=get_candle_type(closes[1]-closes[0])
-            log.debug(f"{ticker} | {percentage} | {candle}")
-        except Exception as e:
-            log.debug(f"Ticker not found:: {ticker}")
-            stop+=1
-
+        tickers_found.extend(partial_tickers)
+    return tickers_found
 
 if __name__ == "__main__":
     t1=time.perf_counter()
-    main()
+
+    tickers=get_tickers(LIMIT_TICKERS)
+    tickers = tickers[:LIMIT_TICKERS]
+
+    closes_by_ticker = get_closes_ticker(tickers)
+    print_table(len(closes_by_ticker))
+
+    for closes in closes_by_ticker:
+        log.debug(closes)
+
     t2=time.perf_counter()
     log.info(f"Finished in {t2-t1:.2f} seconds")
