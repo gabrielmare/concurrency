@@ -1,6 +1,6 @@
 import time
 
-from business import get_binance_tickers, get_binance_ticker
+from business.business import get_binance_tickers, get_binance_ticker
 from exceptions.ticker import ExceptionTickerNotFound
 from general import (
     log,

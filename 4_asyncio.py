@@ -2,7 +2,7 @@ import asyncio
 import time
 import aiohttp
 
-from business_async import get_binance_tickers, get_binance_ticker
+from business.business_async import get_binance_tickers, get_binance_ticker
 from general import (
     log,
     init_log,
@@ -61,4 +61,4 @@ async def main(limit_tickets:int=LIMIT_TICKERS) -> None:
 
 
 if __name__ == "__main__":
-    asyncio.run(main(2500))
+    asyncio.run(main(10))
